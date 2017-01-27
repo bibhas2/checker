@@ -56,39 +56,40 @@ print("Number of classes:", K)
 print("Number of training samples:", m)
 print("Number of features:", n)
 
-#print samples[1].shape
+#Training data placeholder
+X = tf.placeholder(tf.float32, [m, n])
+#Training prediction placeholder
+Y_ = tf.placeholder(tf.float32, [m, K])
+#Weights
+W = tf.Variable(tf.zeros([n, K]))
+#Biases
+b = tf.Variable(tf.zeros([K]))
 
-X = tf.placeholder(tf.float32, [4, 2])
-#X = tf.placeholder(tf.float32, [4])
-Y = tf.placeholder(tf.float32, [2, 4])
+# The operation that calculates predictions
+Y = tf.nn.softmax(tf.matmul(X, W) + b)
 
-# xArr = np.array([
-#     [1, 2],
-#     [3, 4],
-#     [5, 6],
-#     [7, 8]
-# ])
-# xArr = np.array([
-#     1, 2, 3, 4
-# ])
-# yArr = np.array([
-#     [1, 2, 3, 4],
-#     [5, 6, 7, 8]
-# ])
+#Cost function
+cross_entropy = -tf.reduce_mean(Y_ * tf.log(Y))
 
-# model = tf.reduce_sum(X * tf.log(X))
-# runModel(model)
+optimizer = tf.train.GradientDescentOptimizer(0.003)
+train_graph = optimizer.minimize(cross_entropy)
 
-# model = tf.nn.softmax(X)
-# runModel(model)
+init = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init)
 
-# model = tf.matmul(X, Y)
-# runModel(model)
+train_data={X: trainImages, Y_: trainClassification}
 
-# model = tf.reshape(X, [1, 8])
-# runModel(model)
+for i in range(1000):
+    # train
+    sess.run(train_graph, feed_dict=train_data)
 
-# model = tf.add(X, X)
-# runModel(model)
+    #You can calculate the cost after each iteration if you want.
+    #It should steadily decline
+    # cost = sess.run(cross_entropy, feed_dict=train_data)
+    # print("Cost:", cost)
 
+#Apply the final weights and biases on the training data
+checkResult = sess.run(Y, feed_dict=train_data)
 
+print(checkResult)
