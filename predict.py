@@ -4,7 +4,7 @@ from image_loader import load_image_samples
 
 tf.set_random_seed(0)
 
-samples = load_image_samples()
+samples = load_image_samples("training_images")
 testImages = samples[0]
 trainClassification = samples[1]
 #Number of classes

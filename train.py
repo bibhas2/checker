@@ -1,11 +1,10 @@
 import numpy as np
-import matplotlib.image as img
 import tensorflow as tf
 from image_loader import load_image_samples
 
 tf.set_random_seed(0)
 
-samples = load_image_samples()
+samples = load_image_samples("training_images")
 trainImages = samples[0]
 trainClassification = samples[1]
 #Number of classes
@@ -37,7 +36,7 @@ cross_entropy = -tf.reduce_mean(Y_ * tf.log(Y))
 optimizer = tf.train.GradientDescentOptimizer(0.003)
 train_graph = optimizer.minimize(cross_entropy)
 
-init = tf.initialize_all_variables()
+init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
@@ -52,7 +51,10 @@ for i in range(1000):
     # cost = sess.run(cross_entropy, feed_dict=train_data)
     # print("Cost:", cost)
 
-#Apply the final weights and biases on the training data
-checkResult = sess.run(Y, feed_dict=train_data)
+#Save the weights and biases
+finalWeights = sess.run(W)
+finalBiases = sess.run(b)
 
-print(checkResult)
+print "Saving weights and biases."
+np.save("weights", finalWeights)
+np.save("biases", finalBiases)

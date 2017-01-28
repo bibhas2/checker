@@ -1,9 +1,8 @@
 import numpy as np
 import matplotlib.image as img
 
-def load_image_samples():
+def load_image_samples(dirName):
     NUM_SAMPLES = 10
-    TRAINING_DIR = "training_images"
     imageResult = []
     imageClassList = ["o", "c"]
     classResult = []
@@ -12,7 +11,7 @@ def load_image_samples():
         for i in range(0, NUM_SAMPLES):
             #Load the image. The files don't have alpha channel.
             #image will be a 20x20x3 matrix
-            imageFile = "{0}/{1}{2}.png".format(TRAINING_DIR, imageClassList[imageClassIndex], i + 1)
+            imageFile = "{0}/{1}{2}.png".format(dirName, imageClassList[imageClassIndex], i + 1)
             print("Loading:", imageFile)
             image = img.imread(imageFile)
 
