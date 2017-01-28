@@ -24,3 +24,10 @@ This is my very first Tensorflow project. I did everything from scratch, define 
 prepare the training and test data and finally write the code. I had taken the code from
 Martin Görner's talk and changed the shapes of the placehodlers and variables 
 not to be hard coded. 
+
+Most of the work went into creating the image samples and loading them. Actual NN code was
+small.
+
+I decided to split up the training and prediction code to mimic real life use. I had 
+to save the weights and biases after training and load them from the prediction code. Also, note
+how the weights and biases are placeholders in predict.py and not variables.
