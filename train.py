@@ -4,9 +4,8 @@ from image_loader import load_image_samples
 
 tf.set_random_seed(0)
 
-samples = load_image_samples("training_images")
-trainImages = samples[0]
-trainClassification = samples[1]
+trainImages, trainClassification, fileNameList = load_image_samples("training_images")
+
 #Number of classes
 K = trainClassification[0].shape[0]
 #Number of training samples

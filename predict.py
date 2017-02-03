@@ -4,11 +4,10 @@ from image_loader import load_image_samples
 
 tf.set_random_seed(0)
 
-samples = load_image_samples("training_images")
-testImages = samples[0]
-trainClassification = samples[1]
+testImages, testClassification, fileNameList = load_image_samples("training_images")
+
 #Number of classes
-K = trainClassification[0].shape[0]
+K = testClassification[0].shape[0]
 #Number of training samples
 m = testImages.shape[0]
 #Number of features
@@ -41,9 +40,12 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
-train_data={X: testImages, Y_: trainClassification, W: trainWeights, b: trainBiases}
+train_data={X: testImages, Y_: testClassification, W: trainWeights, b: trainBiases}
 
 #Apply the final weights and biases on the training data
 checkResult = sess.run(Y, feed_dict=train_data)
 
-print(checkResult)
+for idx, result in enumerate(checkResult):
+    print "File: ", fileNameList[idx]
+    print "Prediction:"
+    print checkResult[idx]

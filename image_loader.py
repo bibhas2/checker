@@ -7,6 +7,7 @@ def load_image_samples(dirName):
     imageResult = []
     imageClassList = ["o", "c"]
     classResult = []
+    fileNameList = []
 
     for imageClassIndex in range(len(imageClassList)):
         for i in range(0, MAX_NUM_SAMPLES):
@@ -33,5 +34,6 @@ def load_image_samples(dirName):
             #Append this image to the result
             imageResult.append(grey_image)
             classResult.append(trainingClassification)
+            fileNameList.append(imageFile)
 
-    return (np.asarray(imageResult), np.asarray(classResult))
+    return np.asarray(imageResult), np.asarray(classResult), fileNameList
